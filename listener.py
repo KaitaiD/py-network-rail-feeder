@@ -83,14 +83,19 @@ class MVListener(object):
     """
     Make a Listener for Train Movement Feeds.
     """
-    def __init__(self, messager):
+    def __init__(self, messager, view=False):
         """
         Args:
             messager: MessagerToSQL object
+            view: If True, will print all message instead of saving. Default is False
         """
+        self.view = view
         super().__init__(messager)
 
     def on_message(self, headers, messages):
         logger.info(headers)
         for message in json.loads(messages):
-            self._insert_message(message['body'])
+            if view:
+                print(message['body'])
+            else:
+                self._insert_message(message['body'])
