@@ -14,3 +14,60 @@ First of all, you need to install all dependencies required by this tool.
 ```bash
 pip install -r requirements.txt
 ```
+
+## How to use it
+
+Since the output of feeds are mostly in JSON format, and it is quite different to constantly saving updated real-time JSON. Therefore, I choose to save it in to sqlite database. And before saving, you need to specify the data schema for creating SQL table. Another reason is there are many fields in the JSON format, and maybe not everything is useful, therefore, you could cherry-pick the fields you need to save.
+
+To define schema, you could check the WIKI page and find the documentation.
+
+## Current Implementations
+
+RIght now, I only implement for two fields: Train Movement and TD
+
+For instance:
+
+```python
+# Train Movement data feeder
+
+mv_schema = {
+    "event_type": "TEXT", 
+    "gbtt_timestamp": "TEXT",
+    "original_loc_stanox": "TEXT",
+    "planned_timestamp": "INTEGER",
+    "timetable_variation": "TEXT",
+    "current_train_id": "INTEGER",
+    "next_report_run_time": "INTEGER",
+    "reporting_stanox": "INTEGER",
+    "actual_timestamp": "INTEGER",
+    "correction_ind": "TEXT",
+    "event_source": "TEXT",
+    "platform": "TEXT",
+    "division_code": "TEXT",
+    "train_terminated": "TEXT",
+    "train_id": "INTEGER",
+    "variation_status": "TEXT",
+    "train_service_code": "INTEGER",
+    "toc_id": "INTEGER",
+    "loc_stanox": "INTEGER",
+    "auto_expected": "TEXT",
+    "direction_ind": "TEXT",
+    "route": "TEXT",
+    "planned_event_type": "TEXT",
+    "next_report_stanox": "INTEGER",
+}
+
+# you could also choose specific TOC, e.g. "TRAIN_MVT_TOC_HT" as topic
+mv_channel = "TRAIN_MVT_ALL_TOC"
+
+train_mv_rdf = RailDataFeeder(
+                    db_name="train_mv_all_toc.db", 
+                    channel=mv_channel, 
+                    schema=mv_schema,
+                    username=USERNAME,
+                    password=PASSWORD,
+                    drop_if_exists=True
+)
+
+train_mv_rdf.download_feed()
+```
