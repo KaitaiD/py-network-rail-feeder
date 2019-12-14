@@ -1,11 +1,14 @@
 import os
 import time
+import logging
 
 import stomp
 import sqlite3
 import pandas as pd
 
 from listener import MVListener, MessagerToSQL
+
+logger = logging.getLogger("DataFeeder Logger")
 
 HOSTNAME = "datafeeds.networkrail.co.uk"
 
@@ -60,13 +63,13 @@ class RailDataFeeder:
             try:
                 time.sleep(1)
             except KeyboardInterrupt:
-                print("Quitting.")
+                logger.info("Quit saving data to table and disable the connection with data feed!")
                 break
 
         self.msger.close()
         conn.disconnect()
 
-    def to_pandas(self, db_name=None, table_name=None) -> pd.DataFrame:
+    def to_pandas(self, db_name: str = None, table_name: str = None) -> pd.DataFrame:
         """
         Read the sqlite table into a pandas DataFrame.
         
