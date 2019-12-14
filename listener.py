@@ -47,10 +47,10 @@ class MessagerToSQL(object):
         """
         self.conn.close()
         
-
-class MVListener(object):
+        
+class BaseListener(object):
     """
-    Make a Listener for Train Movement Feeds.
+    Make a Base Listener. This can facilitate to create different listeners for different feeds.
     """
     def __init__(self, messager):
         """
@@ -63,9 +63,7 @@ class MVListener(object):
         logger.error(f"ERROR: {headers} {message}")
 
     def on_message(self, headers, messages):
-        logger.info(headers)
-        for message in json.loads(messages):
-            self._insert_message(message['body'])
+        pass
 
     def _insert_message(self, msg: str):
         """
@@ -79,3 +77,20 @@ class MVListener(object):
 
         sql = f"INSERT INTO {self.msger.table_name} VALUES ({placeholders})"
         self.msger.insert(sql, [msg.get(col) for col in columns])
+
+
+class MVListener(object):
+    """
+    Make a Listener for Train Movement Feeds.
+    """
+    def __init__(self, messager):
+        """
+        Args:
+            messager: MessagerToSQL object
+        """
+        super().__init__(messager)
+
+    def on_message(self, headers, messages):
+        logger.info(headers)
+        for message in json.loads(messages):
+            self._insert_message(message['body'])
