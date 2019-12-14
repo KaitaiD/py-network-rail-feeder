@@ -21,7 +21,8 @@ class RailDataFeeder:
                  channel: str,
                  username: str = os.getenv("DATAFEED_USERNAME"), 
                  password: str = os.getenv("DATAFEED_PW"),
-                 drop_if_exists: bool = True
+                 drop_if_exists: bool = True,
+                 view: bool = False
                  ):
         """
         Args:
@@ -32,6 +33,7 @@ class RailDataFeeder:
             password: Password to log in data feed. Default is to obtain from your local environment variable
             drop_if_exists: If True, will drop the table if it exists already before inserting data into it. If
                 False and the same table already exists, it will raise an error. Default is True
+            view: If True, will only print message instead of saving. Default is False
         """"
         self.table_name = db_name.split(".")[0]
         self.db_name = db_name
@@ -39,6 +41,7 @@ class RailDataFeeder:
         self.password = password
         self.channel = channel
         self.schema = schema
+        self.view = view
         self.msger = MessagerToSQL(fp=db_name, schema=schema, drop_if_exists=drop_if_exists)
 
     def _connect_data_feed(self):
@@ -46,7 +49,7 @@ class RailDataFeeder:
         Internal function to connect data feed using stomp connection.
         """
         conn = stomp.Connection(host_and_ports=[(HOSTNAME, 61618)])
-        conn.set_listener('listener', MessageListener(self.msger))
+        conn.set_listener('listener', MessageListener(self.msger, self.view))
         conn.start()
         conn.connect(username=self.username, passcode=self.password)
 
