@@ -11,6 +11,10 @@ from listener import MVListener, MessagerToSQL
 logger = logging.getLogger("DataFeeder Logger")
 
 HOSTNAME = "datafeeds.networkrail.co.uk"
+# This provide a static mapping between topic of feed and corresponding listener, right now only MVListener is implemented
+TOPIC_LISTENER_MAPPING = {
+    "MVT": MVListener
+}
 
 
 class RailDataFeeder:
@@ -18,6 +22,7 @@ class RailDataFeeder:
     def __init__(self, 
                  db_name: str, 
                  schema: dict, 
+                 topic: str,
                  channel: str,
                  username: str = os.getenv("DATAFEED_USERNAME"), 
                  password: str = os.getenv("DATAFEED_PW"),
@@ -28,6 +33,7 @@ class RailDataFeeder:
         Args:
             db_name: Name of sqlite database
             schema: A dictionary containing the fields needed from the data feeds and corresponding data type
+            topic: Topic of channel
             channel: Topic channel in data feed
             username: Registered username. Default is to obtain from your local environment variable
             password: Password to log in data feed. Default is to obtain from your local environment variable
@@ -39,6 +45,10 @@ class RailDataFeeder:
         self.db_name = db_name
         self.username = username
         self.password = password
+        if topic not in TOPIC_LISTENER_MAPPING.keys():
+            raise NotImplementedError(f"Only topics in {TOPIC_LISTENER_MAPPING.keys()} are implemented.")
+        self.topic = topic
+        self.listener = TOPIC_LISTENER_MAPPING[topic]
         self.channel = channel
         self.schema = schema
         self.view = view
@@ -49,7 +59,7 @@ class RailDataFeeder:
         Internal function to connect data feed using stomp connection.
         """
         conn = stomp.Connection(host_and_ports=[(HOSTNAME, 61618)])
-        conn.set_listener('listener', MessageListener(self.msger, self.view))
+        conn.set_listener('listener', self.listener(self.msger, self.view))
         conn.start()
         conn.connect(username=self.username, passcode=self.password)
 
