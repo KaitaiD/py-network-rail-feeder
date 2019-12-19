@@ -71,3 +71,7 @@ train_mv_rdf = RailDataFeeder(
 
 train_mv_rdf.download_feed()
 ```
+This tool also provides a function that allows you to save the SQL table into pandas Dataframe. You can achieve this by doing:
+```
+train_mv_rdf.to_pandas()
+```
