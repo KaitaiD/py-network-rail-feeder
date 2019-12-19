@@ -15,15 +15,15 @@ First of all, you need to install all dependencies required by this tool.
 pip install -r requirements.txt
 ```
 
-## How to use it
+## Why use SQL
 
 Since the output of feeds are mostly in JSON format, and it is quite different to constantly saving updated real-time JSON. Therefore, I choose to save it in to sqlite database. And before saving, you need to specify the data schema for creating SQL table. Another reason is there are many fields in the JSON format, and maybe not everything is useful, therefore, you could cherry-pick the fields you need to save.
 
 To define schema, you could check the WIKI page and find the documentation.
 
-## Current Implementations
+## Current Implementations / How to use it?
 
-RIght now, I only implement for two fields: Train Movement and TD
+Right now, I only implement for two fields: Train Movement and TD
 
 For instance:
 
@@ -63,6 +63,7 @@ mv_channel = "TRAIN_MVT_ALL_TOC"
 train_mv_rdf = RailDataFeeder(
                     db_name="train_mv_all_toc.db", 
                     channel=mv_channel, 
+                    topic="MVT",
                     schema=mv_schema,
                     username=USERNAME,
                     password=PASSWORD,
@@ -71,7 +72,15 @@ train_mv_rdf = RailDataFeeder(
 
 train_mv_rdf.download_feed()
 ```
-This tool also provides a function that allows you to save the SQL table into pandas Dataframe. You can achieve this by doing:
+The mandatory keywords are:
+
+- db_name: The name of the database you would like to save the SQL
+- channel: The name of the channel from which to download data. Keep in mind that you need to register for the channel before downloading.
+- topic: The topic of the channel. Valid topic is now `MVT` only.
+- schema: The data schema. THose can be found in wiki, and maybe you are not into all columns/features, so just define the columns of features you want to download.
+- username/password: If you save them as environment variable with `DATAFEED_USERNAME` and `DATAFEED_PW`, then they will be automatically uploaded. Otherwise, you have to define it in initialization.
+
+This tool also provides a function that allows you to convert the downloaded SQL table into pandas Dataframe. You can achieve this by doing:
 ```
 train_mv_rdf.to_pandas()
 ```
