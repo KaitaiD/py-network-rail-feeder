@@ -13,7 +13,8 @@ logger = logging.getLogger("DataFeeder Logger")
 HOSTNAME = "datafeeds.networkrail.co.uk"
 # This provide a static mapping between topic of feed and corresponding listener, right now only MVListener is implemented
 TOPIC_LISTENER_MAPPING = {
-    "MVT": MVListener
+    "MVT": MVListener,
+    "PPM": PPMListener
 }
 
 
