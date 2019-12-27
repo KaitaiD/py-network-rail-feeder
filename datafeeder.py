@@ -40,7 +40,7 @@ class RailDataFeeder:
             drop_if_exists: If True, will drop the table if it exists already before inserting data into it. If
                 False and the same table already exists, it will raise an error. Default is True
             view: If True, will only print message instead of saving. Default is False
-        """"
+        """
         self.table_name = db_name.split(".")[0]
         self.db_name = db_name
         self.username = username
