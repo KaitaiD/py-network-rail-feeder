@@ -99,3 +99,24 @@ class MVListener(BaseListener):
                 print(message['body'])
             else:
                 self._insert_message(message['body'])
+                
+class PPMListener(BaseListener):
+    """
+    Make a Listener for Public Performance Measures (PPM) Feeds.
+    """
+    def __init__(self, messager, view=False):
+        """
+        Args:
+            messager: MessagerToSQL object
+            view: If True, will print all message instead of saving. Default is False
+        """
+        self.view = view
+        super().__init__(messager)
+
+    def on_message(self, headers, messages):
+        logger.info(headers)
+        data = json.loads(messages)
+        if self.view:
+            print(data['RTPPMDataMsgV1']['RTPPMData'])
+        else:
+            self._insert_message(data['RTPPMDataMsgV1']['RTPPMData'])
