@@ -79,7 +79,7 @@ class BaseListener(object):
         self.msger.insert(sql, [msg.get(col) for col in columns])
 
 
-class MVListener(object):
+class MVListener(BaseListener):
     """
     Make a Listener for Train Movement Feeds.
     """
