@@ -78,6 +78,16 @@ class BaseListener(object):
         sql = f"INSERT INTO {self.msger.table_name} VALUES ({placeholders})"
         self.msger.insert(sql, [msg.get(col) for col in columns])
 
+    def flatten(self, d, parent_key='', sep='_'):
+        items = []
+        for k, v in d.items():
+            new_key = parent_key + sep + k if parent_key else k
+            try:
+                items.extend(self.flatten(v, new_key, sep=sep).items())
+            except:
+                items.append((new_key, v))
+        return dict(items)
+
 
 class MVListener(BaseListener):
     """
@@ -116,7 +126,8 @@ class PPMListener(BaseListener):
     def on_message(self, headers, messages):
         logger.info(headers)
         data = json.loads(messages)
-        if self.view:
-            print(data['RTPPMDataMsgV1']['RTPPMData'])
-        else:
-            self._insert_message(data['RTPPMDataMsgV1']['RTPPMData'])
+        for message in data["RTPPMDataMsgV1"]['RTPPMData']['OperatorPage']:
+            if self.view:
+                print(self.flatten(message['Operator']))
+            else:
+                self._insert_message(self.flatten(message['Operator']))
