@@ -138,7 +138,7 @@ class PPMListener(BaseListener):
 
 class VSTPListener(BaseListener):
     """
-    Make a Listener for VSTP (extra schedule) Feeds.
+    Make a Listener for VSTP (Very Short Term Planning) Feeds.
     """
     def __init__(self, messager, view=False):
         """
