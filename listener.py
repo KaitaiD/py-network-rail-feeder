@@ -78,7 +78,7 @@ class BaseListener(object):
         sql = f"INSERT INTO {self.msger.table_name} VALUES ({placeholders})"
         self.msger.insert(sql, [msg.get(col) for col in columns])
 
-    def flatten(self, d, parent_key='', sep='_'):
+    def _flatten(self, d, parent_key='', sep='_'):
         """
         An function to flatten the nested dictionary and connect the different levels
         of dictionaries with _ symbol
@@ -87,7 +87,7 @@ class BaseListener(object):
         for k, v in d.items():
             new_key = parent_key + sep + k if parent_key else k
             try:
-                items.extend(self.flatten(v, new_key, sep=sep).items())
+                items.extend(self._flatten(v, new_key, sep=sep).items())
             except:
                 items.append((new_key, v))
         return dict(items)
