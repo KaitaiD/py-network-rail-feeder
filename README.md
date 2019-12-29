@@ -39,11 +39,25 @@ An example is given in the `example.py` and Train Movement is chosen as the topi
 For instance:
 
 ```python
-TOPIC = 'MVT'
+# four topics to choose from - 1. MVT 2. PPM 3. VSTP 4. TD
+TOPIC = "MVT"
 
+train_rdf = RailDataFeeder(
+                    db_name=topic_mapping[TOPIC][2], 
+                    channel=topic_mapping[TOPIC][1], 
+                    topic=TOPIC,
+                    schema=topic_mapping[TOPIC][0],
+                    username=USERNAME,
+                    password=PASSWORD,
+                    drop_if_exists=True,
+                    view=False
+)
 
+train_rdf.download_feed()
 ```
-The mandatory keywords are:
+__The users simply needs to state the topic they want to choose and the script will automatically connect to the data feeds and download the required files.__
+
+The mandatory keywords are explained as follows:
 
 - db_name: The name of the database you would like to save the SQL
 - channel: The name of the channel from which to download data. Keep in mind that you need to register for the channel before downloading.
