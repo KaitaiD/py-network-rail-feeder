@@ -21,56 +21,27 @@ Since the output of feeds are mostly in JSON format, and it is quite different t
 
 To define schema, you could check the WIKI page and find the documentation.
 
-## Current Implementations / How to use it?
+## Topics to download and store
 
-Right now, I only implement for two fields: Train Movement and TD
+There are four topics the readers can choose to download and store from Network Rail data feeds. Namely:
+
+1. MVT - Train movement
+2. PPM - Public performance measure
+3. VSTP - Very short term planning
+4. TD - Train describer
+
+__Before running the script, readers must register and subscribe the corresponding feeds.__ Moreover, there is also a topic called 'SCHEDULE' that can be downloaded in a similar way to VSTP, however, it requires extra authorisation to access to the files. If interested, readers can gain the access and follow the similar step to complete the download.
+
+## How to use it?
+
+An example is given in the `example.py` and Train Movement is chosen as the topic I want to download.
 
 For instance:
 
 ```python
-# Train Movement data feeder
+TOPIC = 'MVT'
 
-mv_schema = {
-    "event_type": "TEXT", 
-    "gbtt_timestamp": "TEXT",
-    "original_loc_stanox": "TEXT",
-    "planned_timestamp": "INTEGER",
-    "timetable_variation": "TEXT",
-    "current_train_id": "INTEGER",
-    "next_report_run_time": "INTEGER",
-    "reporting_stanox": "INTEGER",
-    "actual_timestamp": "INTEGER",
-    "correction_ind": "TEXT",
-    "event_source": "TEXT",
-    "platform": "TEXT",
-    "division_code": "TEXT",
-    "train_terminated": "TEXT",
-    "train_id": "INTEGER",
-    "variation_status": "TEXT",
-    "train_service_code": "INTEGER",
-    "toc_id": "INTEGER",
-    "loc_stanox": "INTEGER",
-    "auto_expected": "TEXT",
-    "direction_ind": "TEXT",
-    "route": "TEXT",
-    "planned_event_type": "TEXT",
-    "next_report_stanox": "INTEGER",
-}
 
-# you could also choose specific TOC, e.g. "TRAIN_MVT_TOC_HT" as topic
-mv_channel = "TRAIN_MVT_ALL_TOC"
-
-train_mv_rdf = RailDataFeeder(
-                    db_name="train_mv_all_toc.db", 
-                    channel=mv_channel, 
-                    topic="MVT",
-                    schema=mv_schema,
-                    username=USERNAME,
-                    password=PASSWORD,
-                    drop_if_exists=True
-)
-
-train_mv_rdf.download_feed()
 ```
 The mandatory keywords are:
 
