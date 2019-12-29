@@ -15,7 +15,8 @@ HOSTNAME = "datafeeds.networkrail.co.uk"
 TOPIC_LISTENER_MAPPING = {
     "MVT": MVListener,
     "PPM": PPMListener,
-    'VSTP': VSTPListener
+    'VSTP': VSTPListener,
+    'TD': TDListener
 }
 
 
