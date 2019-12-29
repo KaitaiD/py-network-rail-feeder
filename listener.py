@@ -175,8 +175,9 @@ class VSTPListener(BaseListener):
         data = json.loads(messages)
         new_key = "MSG"
         for message in data:
-                for k, v in message.items():            
-                    if self.view:
-                        print({**{new_key: k}, **v})
-                    else:
-                        self._insert_message({**{new_key: k}, **v})
+            for k, v in message.items():  
+                new_formed_message = {**{new_key: k}, **v}
+                if self.view:
+                    print(new_formed_message)
+                else:
+                    self._insert_message(new_formed_message)
