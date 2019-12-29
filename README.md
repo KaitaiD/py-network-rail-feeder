@@ -39,6 +39,8 @@ An example is given in the `example.py` and Train Movement is chosen as the topi
 For instance:
 
 ```python
+from datafeeder import RailDataFeeder
+
 # four topics to choose from - 1. MVT 2. PPM 3. VSTP 4. TD
 TOPIC = "MVT"
 
