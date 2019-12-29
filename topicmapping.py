@@ -85,7 +85,7 @@ td_channel = "TD_ALL_SIG_AREA"
 mv_db = "train_mv_all_toc.db"
 ppm_db = "train_ppm_all_toc.db"
 vstp_db = "train_vstp_all_toc.db"
-td_db = "train_vstp_all_toc.db"
+td_db = "train_td_all_toc.db"
 
 # complete topic mapping 
 topic_mapping = {'MVT': [mv_schema, mv_channel, mv_db], 
