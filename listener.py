@@ -156,3 +156,27 @@ class VSTPListener(BaseListener):
             print(data['VSTPCIFMsgV1']['schedule'])
         else:
             self._insert_message(data['VSTPCIFMsgV1']['schedule'])
+
+ class TDListener(BaseListener):
+    """
+    Make a Listener for train describer (TD) Feeds.
+    """
+    def __init__(self, messager, view=False):
+        """
+        Args:
+            messager: MessagerToSQL object
+            view: If True, will print all message instead of saving. Default is False
+        """
+        self.view = view
+        super().__init__(messager)
+
+    def on_message(self, headers, messages):
+        logger.info(headers)
+        data = json.loads(messages)
+        new_key = "MSG"
+        for message in data:
+                for k, v in message.items():            
+                    if self.view:
+                        print({**{new_key: k}, **v})
+                    else:
+                        self._insert_message({**{new_key: k}, **v})
