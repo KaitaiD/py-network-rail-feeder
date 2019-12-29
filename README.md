@@ -59,11 +59,11 @@ __The users simply needs to state the topic they want to choose and the script w
 
 The mandatory keywords are explained as follows:
 
-- db_name: The name of the database you would like to save the SQL
-- channel: The name of the channel from which to download data. Keep in mind that you need to register for the channel before downloading.
-- topic: The topic of the channel. Valid topic is now `MVT` only.
-- schema: The data schema. THose can be found in wiki, and maybe you are not into all columns/features, so just define the columns of features you want to download.
-- username/password: If you save them as environment variable with `DATAFEED_USERNAME` and `DATAFEED_PW`, then they will be automatically uploaded. Otherwise, you have to define it in initialization.
+- `db_name`: The name of the database you would like to save the SQL
+- `channel`: The name of the channel from which to download data. Keep in mind that you need to register for the channel before downloading.
+- `topic`: The topic of the channel. Valid topic is now `MVT` only.
+- `schema`: The data schema. THose can be found in wiki, and maybe you are not into all columns/features, so just define the columns of features you want to download.
+- `username/password`: If you save them as environment variable with `DATAFEED_USERNAME` and `DATAFEED_PW`, then they will be automatically uploaded. Otherwise, you have to define it in initialization.
 
 This tool also provides a function that allows you to convert the downloaded SQL table into pandas Dataframe. You can achieve this by doing:
 ```
