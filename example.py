@@ -11,6 +11,10 @@ from topicmapping import topic_mapping
 
 pd.options.display.max_columns = None
 
+# Set up the personal information for the data feeds
+USERNAME = 'XXXXXX'
+PASSWORD = 'XXXXXX'
+
 # four topics to choose from - 1. MVT 2. PPM 3. VSTP 4. TD
 TOPIC = "MVT"
 
