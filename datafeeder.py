@@ -14,7 +14,8 @@ HOSTNAME = "datafeeds.networkrail.co.uk"
 # This provide a static mapping between topic of feed and corresponding listener, right now only MVListener is implemented
 TOPIC_LISTENER_MAPPING = {
     "MVT": MVListener,
-    "PPM": PPMListener
+    "PPM": PPMListener,
+    'VSTP': VSTPListener
 }
 
 
