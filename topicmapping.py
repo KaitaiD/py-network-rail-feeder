@@ -88,7 +88,7 @@ vstp_db = "train_vstp_all_toc.db"
 td_db = "train_td_all_toc.db"
 
 # complete topic mapping 
-topic_mapping = {'MVT': [mv_schema, mv_channel, mv_db], 
+TopicMapping = {'MVT': [mv_schema, mv_channel, mv_db], 
                  'PPM': [ppm_schema, ppm_channel, ppm_db],
                  'VSTP':[vstp_schema, vstp_channel, vstp_db],
                  'TD':[td_schema, td_channel, td_db]
