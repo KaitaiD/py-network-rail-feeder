@@ -30,7 +30,9 @@ There are four topics the readers can choose to download and store from Network 
 3. __VSTP__ - Very short term planning
 4. __TD__ - Train describer
 
-__Before running the script, readers must register and subscribe the corresponding feeds.__ Moreover, there is also a topic called 'SCHEDULE' that can be downloaded in a similar way to VSTP, however, it requires extra authorisation to access to the files. If interested, readers can gain the access and follow the similar step to complete the download.
+__Before running the script, readers must register and subscribe the corresponding feeds.__ 
+
+Moreover, there is also a topic called 'SCHEDULE' that can be downloaded in a similar way to VSTP, however, it requires extra authorisation to access to the files. If interested, readers can gain the access and follow the similar step to complete the download.
 
 ## How to use it?
 
