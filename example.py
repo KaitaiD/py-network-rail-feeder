@@ -7,7 +7,7 @@ import sqlite3
 import pandas as pd
 
 from listener import MVListener, PPMListener, VSTPListener, TDListener, MessagerToSQL
-from topicmapping import topic_mapping
+from topicmapping import TopicMapping
 from datafeeder import RailDataFeeder
 
 pd.options.display.max_columns = None
@@ -20,10 +20,10 @@ PASSWORD = 'XXXXXX'
 TOPIC = "MVT"
 
 train_rdf = RailDataFeeder(
-                    db_name=topic_mapping[TOPIC][2], 
-                    channel=topic_mapping[TOPIC][1], 
+                    db_name=TopicMapping[TOPIC][2], 
+                    channel=TopicMapping[TOPIC][1], 
                     topic=TOPIC,
-                    schema=topic_mapping[TOPIC][0],
+                    schema=TopicMapping[TOPIC][0],
                     username=USERNAME,
                     password=PASSWORD,
                     drop_if_exists=True,
