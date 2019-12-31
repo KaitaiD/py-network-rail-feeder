@@ -41,16 +41,17 @@ An example is given in the `example.py` and Train Movement is chosen as the topi
 For instance:
 
 ```python
+from topicmapping import TopicMapping
 from datafeeder import RailDataFeeder
 
 # four topics to choose from - 1. MVT 2. PPM 3. VSTP 4. TD
 TOPIC = "MVT"
 
 train_rdf = RailDataFeeder(
-                    db_name=topic_mapping[TOPIC][2], 
-                    channel=topic_mapping[TOPIC][1], 
+                    db_name=TopicMapping[TOPIC][2], 
+                    channel=TopicMapping[TOPIC][1], 
                     topic=TOPIC,
-                    schema=topic_mapping[TOPIC][0],
+                    schema=TopicMapping[TOPIC][0],
                     username=USERNAME,
                     password=PASSWORD,
                     drop_if_exists=True,
@@ -71,5 +72,6 @@ The mandatory keywords are explained as follows:
 
 This tool also provides a function that allows you to convert the downloaded SQL table into pandas Dataframe. You can achieve this by doing:
 ```
-train_mv_rdf.to_pandas()
+import pandas as pd
+train_rdf.to_pandas()
 ```
